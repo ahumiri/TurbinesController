@@ -20,9 +20,7 @@ struct CentralController {
     turbines: Vec<Box<dyn TurbineTrait>>,
 }
 
-// #[macro_use]
 impl CentralController {
-    // #[warn(dead_code)]
     fn attach_turbine(&mut self, turbine: Box<dyn TurbineTrait>) {
         if self.turbines.iter().all(|x| x.get_turbine_number() != turbine.get_turbine_number()) {
             self.turbines.push(turbine);
@@ -40,7 +38,7 @@ impl CentralController {
 
     fn notify_turbine(&self, cmd: &str) -> Vec<String> {
         // mapping iterable object
-        // self.turbines.iter().map(|x| x.send_command(cmd)).collect()
+        self.turbines.iter().map(|x| x.send_command(cmd)).collect()
         let mut messages = vec![];
         for turbine in self.turbines.iter(){
             messages.push(turbine.send_command(cmd))
